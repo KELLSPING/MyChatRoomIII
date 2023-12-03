@@ -3,8 +3,10 @@ package com.example.mychatroomiii;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Boolean validEmail = false;
     Boolean validPassword = false;
+    AlertDialog.Builder builder;
+    AlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         createComponents();
 
         auth = FirebaseAuth.getInstance();
+
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please wait...");
+        builder.setCancelable(false);
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +54,16 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = builder.create();
+                progressDialog.show();
+
                 String email = etLoginEmail.getText().toString();
                 String password = etLoginPassword.getText().toString();
 
                 checkEmailAndPassword(email, password);
 
                 if (validEmail && validPassword){
+                    progressDialog.dismiss();
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -71,11 +83,13 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email)){
             Toast.makeText(LoginActivity.this, "Empty Email", Toast.LENGTH_SHORT).show();
             validEmail = false;
+            progressDialog.dismiss();
         } else if (!email.matches(emailPattern)){
             etLoginEmail.setError("Invalid Email");
             Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
             etLoginEmail.setText("");
             validEmail = false;
+            progressDialog.dismiss();
         } else {
             validEmail = true;
         }
@@ -83,11 +97,13 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(password)){
             Toast.makeText(LoginActivity.this, "Empty Password", Toast.LENGTH_SHORT).show();
             validPassword = false;
+            progressDialog.dismiss();
         } else if (password.length() < 6) {
 //            etLoginPassword.setError("At least 6 characters.");
 //            Toast.makeText(LoginActivity.this, "At least 6 characters.", Toast.LENGTH_SHORT).show();
             etLoginPassword.setText("");
             validPassword = false;
+            progressDialog.dismiss();
         } else {
             validPassword = true;
         }
