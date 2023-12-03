@@ -19,7 +19,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() == null){
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));

@@ -34,7 +34,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginHorizontal="20dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
+                android:id="@+id/etRegName"
                 android:hint="@string/name"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etEmailAddress"
+                android:id="@+id/etRegEmail"
                 android:hint="@string/email"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPassword"
+                android:id="@+id/etRegPass"
                 android:hint="@string/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -72,13 +72,14 @@
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etConfirmPassword"
+                android:id="@+id/etRegConfPass"
                 android:hint="@string/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSignUp"
             android:text="@string/sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

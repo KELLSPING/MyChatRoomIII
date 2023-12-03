@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
         createComponents();
 
+        auth = FirebaseAuth.getInstance();
+
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,29 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = etLoginEmail.getText().toString();
                 String password = etLoginPassword.getText().toString();
 
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(LoginActivity.this, "Empty Email", Toast.LENGTH_SHORT).show();
-                    validEmail = false;
-                } else if (!email.matches(emailPattern)){
-                    etLoginEmail.setError("Invalid Email");
-                    Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
-                    etLoginEmail.setText("");
-                    validEmail = false;
-                } else {
-                    validEmail = true;
-                }
-
-                if (TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginActivity.this, "Empty Password", Toast.LENGTH_SHORT).show();
-                    validPassword = false;
-                } else if (password.length() < 6) {
-                    etLoginPassword.setError("Password must be at least 6 characters.");
-                    Toast.makeText(LoginActivity.this, "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
-                    etLoginPassword.setText("");
-                    validPassword = false;
-                } else {
-                    validPassword = true;
-                }
+                checkEmailAndPassword(email, password);
 
                 if (validEmail && validPassword){
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -85,6 +65,32 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkEmailAndPassword(String email, String password) {
+        if (TextUtils.isEmpty(email)){
+            Toast.makeText(LoginActivity.this, "Empty Email", Toast.LENGTH_SHORT).show();
+            validEmail = false;
+        } else if (!email.matches(emailPattern)){
+            etLoginEmail.setError("Invalid Email");
+            Toast.makeText(LoginActivity.this, "Invalid Email", Toast.LENGTH_SHORT).show();
+            etLoginEmail.setText("");
+            validEmail = false;
+        } else {
+            validEmail = true;
+        }
+
+        if (TextUtils.isEmpty(password)){
+            Toast.makeText(LoginActivity.this, "Empty Password", Toast.LENGTH_SHORT).show();
+            validPassword = false;
+        } else if (password.length() < 6) {
+//            etLoginPassword.setError("At least 6 characters.");
+//            Toast.makeText(LoginActivity.this, "At least 6 characters.", Toast.LENGTH_SHORT).show();
+            etLoginPassword.setText("");
+            validPassword = false;
+        } else {
+            validPassword = true;
+        }
     }
 
     private void createComponents() {
