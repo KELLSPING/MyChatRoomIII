@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -16,10 +19,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+//        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
 
-//        if (auth.getCurrentUser() == null){
-//            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-//        }
+        if (auth.getCurrentUser() == null){
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+        }
     }
 }
