@@ -76,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = etRegEmail.getText().toString();
                 String password = etRegPass.getText().toString();
                 String cPassword = etRegConfPass.getText().toString();
+                String status = "Aa";
 
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || 
                         TextUtils.isEmpty(password) || TextUtils.isEmpty(cPassword)){
@@ -123,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Uri uri) {
                                                         imageURI = uri.toString();
-                                                        Users users = new Users(auth.getUid(), name, email, imageURI);
+                                                        Users users = new Users(auth.getUid(), name, email, imageURI, status);
                                                         databaseRef.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
@@ -142,8 +143,9 @@ public class RegisterActivity extends AppCompatActivity {
                                         }
                                     });
                                 } else {
+                                    String status = "Aa";
                                     imageURI = "https://firebasestorage.googleapis.com/v0/b/mychatroomiii.appspot.com/o/person_image.xml?alt=media&token=c7a5d1d2-f7d7-46f6-bf64-1321a9f92c2f";
-                                    Users users = new Users(auth.getUid(), name, email, imageURI);
+                                    Users users = new Users(auth.getUid(), name, email, imageURI, status);
                                     databaseRef.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
