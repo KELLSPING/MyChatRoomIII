@@ -16,5 +16,6 @@
 
     <string name="new_user">New user ?</string>
     <string name="already_user">Already User ?</string>
+    <string name="status">Status</string>
 
 </resources>
