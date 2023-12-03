@@ -1,5 +1,7 @@
 package com.example.mychatroomiii;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,18 +41,23 @@ public class RegisterActivity extends AppCompatActivity {
     Uri imageUri;
     String imageURI;
 
+    AlertDialog.Builder builder;
+    AlertDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-
 
         createComponents();
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please wait...");
+        builder.setCancelable(false);
 
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = builder.create();
+                progressDialog.show();
+
                 String name = etRegName.getText().toString();
                 String email = etRegEmail.getText().toString();
                 String password = etRegPass.getText().toString();
@@ -71,26 +81,32 @@ public class RegisterActivity extends AppCompatActivity {
                         TextUtils.isEmpty(password) || TextUtils.isEmpty(cPassword)){
                     Toast.makeText(RegisterActivity.this,
                             "Please Enter Valid Data", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 } else if (!email.matches(emailPattern)) {
                     etRegEmail.setError("Invalid Email");
                     Toast.makeText(RegisterActivity.this,
                             "Invalid Email", Toast.LENGTH_SHORT).show();
                     setStringEmpty();
+                    progressDialog.dismiss();
                 } else if (!password.equals(cPassword)) {
                     Toast.makeText(RegisterActivity.this,
                             "Password not match", Toast.LENGTH_SHORT).show();
                     setStringEmpty();
+                    progressDialog.dismiss();
                 } else if (password.length() < 6) {
                     etRegPass.setError("At least 6 characters.");
                     Toast.makeText(RegisterActivity.this,
                             "At least 6 characters.", Toast.LENGTH_SHORT).show();
                     setStringEmpty();
+                    progressDialog.dismiss();
                 } else {
                     auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
+                                progressDialog.dismiss();
+
                                 DatabaseReference databaseRef = database.getReference()
                                         .child("user").child(auth.getUid());
                                 StorageReference storageRef = storage.getReference()
@@ -142,6 +158,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
                                 }
                             } else {
+                                progressDialog.dismiss();
+
                                 Toast.makeText(RegisterActivity.this, "Something wrong.", Toast.LENGTH_SHORT).show();
                             }
                         }
