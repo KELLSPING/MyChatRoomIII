@@ -1,4 +1,4 @@
-package com.example.mychatroomiii;
+package com.example.mychatroomiii.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mychatroomiii.Activity.ChatActivity;
+import com.example.mychatroomiii.Activity.HomeActivity;
+import com.example.mychatroomiii.R;
+import com.example.mychatroomiii.Model.Users;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,10 +39,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Users users = usersArrayList.get(position);
 
-        holder.user_name.setText(users.name);
-        holder.user_status.setText(users.status);
+        holder.user_name.setText(users.getName());
+        holder.user_status.setText(users.getStatus());
 
-        Picasso.get().load(users.imageUri).into(holder.user_profile);
+        Picasso.get().load(users.getImageUri()).into(holder.user_profile);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

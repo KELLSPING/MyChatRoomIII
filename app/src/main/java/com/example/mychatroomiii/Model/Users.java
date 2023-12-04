@@ -1,4 +1,4 @@
-package com.example.mychatroomiii;
+package com.example.mychatroomiii.Model;
 
 public class Users {
 

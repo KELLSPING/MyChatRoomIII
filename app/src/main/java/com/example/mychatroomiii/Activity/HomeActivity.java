@@ -1,4 +1,4 @@
-package com.example.mychatroomiii;
+package com.example.mychatroomiii.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mychatroomiii.R;
+import com.example.mychatroomiii.Adapter.UserAdapter;
+import com.example.mychatroomiii.Model.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

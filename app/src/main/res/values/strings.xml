@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">MyChatRoomIII</string>
     <string name="simple_chat">Simple Chat</string>
+    <string name="aa">Aa</string>
 
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="status">Status</string>
 
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -16,6 +18,5 @@
 
     <string name="new_user">New user ?</string>
     <string name="already_user">Already User ?</string>
-    <string name="status">Status</string>
 
 </resources>

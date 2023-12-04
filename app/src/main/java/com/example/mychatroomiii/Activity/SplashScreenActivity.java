@@ -1,10 +1,12 @@
-package com.example.mychatroomiii;
+package com.example.mychatroomiii.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.mychatroomiii.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
