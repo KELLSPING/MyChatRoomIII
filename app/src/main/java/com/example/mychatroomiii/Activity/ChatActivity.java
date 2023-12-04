@@ -2,6 +2,7 @@ package com.example.mychatroomiii.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mychatroomiii.Adapter.MessagesAdapter;
 import com.example.mychatroomiii.Model.Messages;
 import com.example.mychatroomiii.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     String senderRoom, receiverRoom;
     RecyclerView messageAdapter;
     ArrayList<Messages> messagesArrayList;
+    MessagesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,11 @@ public class ChatActivity extends AppCompatActivity {
         tvReceiverName = findViewById(R.id.tvReceiverName);
 
         messageAdapter = findViewById(R.id.messageAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        messageAdapter.setLayoutManager(linearLayoutManager);
+        adapter = new MessagesAdapter(ChatActivity.this, messagesArrayList);
+        messageAdapter.setAdapter(adapter);
 
         btnSend = findViewById(R.id.btnSend);
         etMessage = findViewById(R.id.etMessage);
@@ -80,11 +88,13 @@ public class ChatActivity extends AppCompatActivity {
         chatReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messagesArrayList.clear();
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Messages messages = dataSnapshot.getValue(Messages.class);
                     messagesArrayList.add(messages);
                 }
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
