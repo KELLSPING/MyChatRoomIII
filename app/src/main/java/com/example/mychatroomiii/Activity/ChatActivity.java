@@ -64,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
 
         messageAdapter = findViewById(R.id.messageAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setStackFromEnd(true); // 從底部開始堆疊
         messageAdapter.setLayoutManager(linearLayoutManager);
         adapter = new MessagesAdapter(ChatActivity.this, messagesArrayList);
         messageAdapter.setAdapter(adapter);
@@ -95,6 +95,7 @@ public class ChatActivity extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 adapter.notifyDataSetChanged();
+                messageAdapter.scrollToPosition(adapter.getItemCount() - 1);
             }
 
             @Override
