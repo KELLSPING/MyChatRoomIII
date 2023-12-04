@@ -88,6 +88,8 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
             return true;
+        } else if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
         }
         return false;
     }

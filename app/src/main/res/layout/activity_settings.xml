@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SettingsActivity"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:gravity="start">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/save"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/done_image"
+        android:background="@drawable/rect_black_shape"
+        android:tint="@color/white"
+        android:layout_margin="10dp"
+        android:layout_gravity="right"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/settings_image"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:src="@drawable/person_image"
+        android:background="@drawable/rect_gray_shape"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/settings_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@null"
+        android:text="@string/app_name"/>
+
+    <EditText
+        android:id="@+id/settings_status"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:background="@null"
+        android:text="@string/aa"/>
+
+</LinearLayout>
