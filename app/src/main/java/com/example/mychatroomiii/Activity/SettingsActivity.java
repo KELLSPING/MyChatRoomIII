@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ public class SettingsActivity extends AppCompatActivity {
     FirebaseStorage storage;
     Uri selectedImageUri;
     String email;
+    AlertDialog.Builder builder;
+    AlertDialog progressDialog;
 
 
     @Override
@@ -53,6 +56,10 @@ public class SettingsActivity extends AppCompatActivity {
         settings_name = findViewById(R.id.settings_name);
         settings_status = findViewById(R.id.settings_status);
         save = findViewById(R.id.save);
+
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please wait...");
+        builder.setCancelable(false);
 
         DatabaseReference reference = database.getReference().child("user").child(auth.getUid());
         StorageReference storageReference = storage.getReference().child("upload").child(auth.getUid());
@@ -89,6 +96,9 @@ public class SettingsActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = builder.create();
+                progressDialog.show();
+
                 String name = settings_name.getText().toString();
                 String status = settings_status.getText().toString();
 
@@ -105,6 +115,8 @@ public class SettingsActivity extends AppCompatActivity {
                                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
+                                            progressDialog.dismiss();
+
                                             if (task.isSuccessful()){
                                                 Toast.makeText(SettingsActivity.this, "Data Upload Success", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
@@ -128,6 +140,8 @@ public class SettingsActivity extends AppCompatActivity {
                             reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    progressDialog.dismiss();
+
                                     if (task.isSuccessful()){
                                         Toast.makeText(SettingsActivity.this, "Data Upload Success", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
