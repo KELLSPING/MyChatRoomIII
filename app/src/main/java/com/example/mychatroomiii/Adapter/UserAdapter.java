@@ -1,4 +1,4 @@
-package com.example.mychatroomiii;
+package com.example.mychatroomiii.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mychatroomiii.Activity.ChatActivity;
+import com.example.mychatroomiii.Activity.HomeActivity;
+import com.example.mychatroomiii.R;
+import com.example.mychatroomiii.Model.Users;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
