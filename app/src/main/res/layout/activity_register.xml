@@ -26,7 +26,8 @@
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/person_add_image" />
+            android:src="@drawable/add_image"
+            android:layout_marginTop="20dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
