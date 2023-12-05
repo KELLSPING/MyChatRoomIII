@@ -47,8 +47,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Users users = dataSnapshot.getValue(Users.class);
-                    usersArrayList.add(users);
+                    String uid = dataSnapshot.getKey();
+
+                    // 不顯示自己的聊天室
+                    if (!uid.equals(FirebaseAuth.getInstance().getUid())){
+                        Users users = dataSnapshot.getValue(Users.class);
+                        usersArrayList.add(users);
+                    }
+
+                    // 顯示自己和別人的聊天室
+//                    Users users = dataSnapshot.getValue(Users.class);
+//                    usersArrayList.add(users);
                 }
                 adapter.notifyDataSetChanged();
             }
