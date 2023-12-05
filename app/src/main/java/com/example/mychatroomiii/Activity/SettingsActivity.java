@@ -8,6 +8,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import com.example.mychatroomiii.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +36,7 @@ import com.squareup.picasso.Picasso;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    ShapeableImageView settings_image, save;
+    ShapeableImageView settings_image;
     EditText settings_name, settings_status;
     FirebaseAuth auth;
     FirebaseDatabase database;
@@ -41,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
     String email;
     AlertDialog.Builder builder;
     AlertDialog progressDialog;
+    MaterialButton btnConfirm;
 
 
     @Override
@@ -55,7 +60,11 @@ public class SettingsActivity extends AppCompatActivity {
         settings_image = findViewById(R.id.settings_image);
         settings_name = findViewById(R.id.settings_name);
         settings_status = findViewById(R.id.settings_status);
-        save = findViewById(R.id.save);
+        btnConfirm = findViewById(R.id.btnConfirm);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 顯示 menu 中的返回按鍵
+        getSupportActionBar().setTitle(R.string.settings);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         builder = new AlertDialog.Builder(this);
         builder.setMessage("Please wait...");
@@ -93,9 +102,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 progressDialog = builder.create();
                 progressDialog.show();
 
@@ -155,7 +164,8 @@ public class SettingsActivity extends AppCompatActivity {
                     });
                 }
             }
-        });
+        }); // btnConfirm
+
     }
 
     @Override
@@ -168,5 +178,21 @@ public class SettingsActivity extends AppCompatActivity {
                 settings_image.setImageURI(selectedImageUri);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_settings_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

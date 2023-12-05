@@ -3,21 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Activity.SettingsActivity"
     android:orientation="vertical"
-    android:layout_gravity="center_vertical"
-    android:gravity="start">
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/save"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/done_image"
-        android:background="@drawable/rect_black_shape"
-        android:tint="@color/white"
-        android:layout_margin="10dp"
-        android:layout_gravity="right"/>
+    android:layout_gravity="center"
+    android:layout_centerInParent="true">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/settings_image"
@@ -32,12 +22,12 @@
         android:id="@+id/settings_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:textStyle="bold"
         android:background="@null"
-        android:text="@string/app_name"/>
+        android:text="@string/app_name"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/settings_status"
@@ -49,5 +39,13 @@
         android:textStyle="normal"
         android:background="@null"
         android:text="@string/aa"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirm"
+        android:text="@string/confirm"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginVertical="20dp"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
