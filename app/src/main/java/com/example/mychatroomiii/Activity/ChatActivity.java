@@ -36,8 +36,6 @@ import java.util.Date;
 public class ChatActivity extends AppCompatActivity {
 
     String ReceiverUid, ReceiverName, ReceiverImage, SenderUid;
-    ShapeableImageView profileImage;
-    TextView tvReceiverName;
     FirebaseDatabase database;
     FirebaseAuth auth;
     public static String sImage;
@@ -67,9 +65,6 @@ public class ChatActivity extends AppCompatActivity {
 
         messagesArrayList = new ArrayList<>();
 
-        profileImage = findViewById(R.id.profile_image);
-        tvReceiverName = findViewById(R.id.tvReceiverName);
-
         messageAdapter = findViewById(R.id.messageAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true); // 從底部開始堆疊
@@ -79,9 +74,6 @@ public class ChatActivity extends AppCompatActivity {
 
         btnSend = findViewById(R.id.btnSend);
         etMessage = findViewById(R.id.etMessage);
-
-        Picasso.get().load(ReceiverImage).into(profileImage);
-        tvReceiverName.setText(""+ReceiverName);
 
         SenderUid = auth.getUid();
 
