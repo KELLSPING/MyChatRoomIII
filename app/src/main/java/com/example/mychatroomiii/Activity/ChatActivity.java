@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,6 +61,10 @@ public class ChatActivity extends AppCompatActivity {
         ReceiverName = getIntent().getStringExtra("receiverName");
         ReceiverImage = getIntent().getStringExtra("receiverImage");
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 顯示 menu 中的返回按鍵
+        getSupportActionBar().setTitle(ReceiverName);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         messagesArrayList = new ArrayList<>();
 
         profileImage = findViewById(R.id.profile_image);
@@ -79,8 +87,6 @@ public class ChatActivity extends AppCompatActivity {
 
         senderRoom = SenderUid + ReceiverUid;
         receiverRoom = ReceiverUid + SenderUid;
-
-
 
         DatabaseReference reference = database.getReference().child("user").child(auth.getUid());
         DatabaseReference chatReference = database.getReference().child("chats").child(senderRoom).child("messages");
@@ -152,5 +158,22 @@ public class ChatActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_chat_activity, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
