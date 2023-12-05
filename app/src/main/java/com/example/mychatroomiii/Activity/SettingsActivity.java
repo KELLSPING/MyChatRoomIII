@@ -8,6 +8,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -58,6 +61,10 @@ public class SettingsActivity extends AppCompatActivity {
         settings_name = findViewById(R.id.settings_name);
         settings_status = findViewById(R.id.settings_status);
         btnConfirm = findViewById(R.id.btnConfirm);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 顯示 menu 中的返回按鍵
+        getSupportActionBar().setTitle(R.string.settings);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         builder = new AlertDialog.Builder(this);
         builder.setMessage("Please wait...");
@@ -171,5 +178,21 @@ public class SettingsActivity extends AppCompatActivity {
                 settings_image.setImageURI(selectedImageUri);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_settings_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
